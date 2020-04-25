@@ -1,0 +1,237 @@
+// Variables
+$primary: #8e80ef;
+$secondary: #ffaa1a;
+$primary-text: #121212;
+$secondary-text: #dbdbdb;
+$body-bg:#fafafa;
+// Mixins
+@mixin d-flex {
+    display: flex;
+}
+
+@mixin d-flex-column {
+    flex-direction: column;
+}
+
+@mixin d-flex-center {
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin d-flex-v-center {
+    align-items: center;
+}
+
+@mixin d-flex-h-center {
+    justify-content: center;
+}
+
+@mixin d-flex-between {
+    justify-content: space-between;
+}
+
+@mixin fluid {
+    width: 100%;
+    height: 100%;
+}
+
+@mixin flex-grow {
+    flex-grow: 1;
+}
+
+@mixin drop-shadow {
+    box-shadow: 2px 4px 12px 1px rgba(142, 128, 239, 0.3);
+}
+
+// PLaceholder
+// Reset
+* {
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+// Global
+html,
+body,
+.site-wrapper {
+    @include fluid();
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.site-wrapper {
+    @include d-flex();
+    @include fluid();
+    background-color: $body-bg;
+}
+
+.d-flex {
+    @include d-flex();
+}
+
+.align-items-center {
+    @include d-flex-v-center();
+}
+
+/*
+    Components
+*/
+
+// 1. Sidebar
+.sidebar {
+    @include flex-grow();
+    background-color: #ffffff;
+    max-width: 240px;
+    height: 100%;
+    border-right: 1px solid #eeeeee;
+    transition: all .4s ease-in-out;
+    header {
+        padding: 2em;
+        transition: all .4s ease-in-out;
+        @media screen and (max-width: 768px) {
+            padding: 1em;
+        }
+        a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: $primary;
+            color: #ffffff;
+            @include d-flex();
+            @include d-flex-center();
+            @include drop-shadow();
+        }
+    }
+    .menu {
+        .menu-item {
+            @include d-flex();
+            @include d-flex-v-center();
+            padding: .8em 2.2em;
+            color: $primary-text;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all .4s ease-in-out;
+            &:hover,
+            &.active {
+                background-color: lighten($primary, 25);
+                color: $primary;
+            }
+            @media screen and (max-width:768px) {
+                padding: 1em;
+                @include d-flex-h-center();
+            }
+        }
+    }
+    .menu-icon {
+        width: 30px;
+        text-align: center;
+    }
+    .menu-label {
+        padding-left: 10px;
+        @media screen and (max-width: 768px) {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+        }
+    }
+    @media screen and (max-width:768px) {
+        max-width: 70px;
+    }
+}
+
+// 2. Main Wrapper
+.main-wrapper {
+    @include flex-grow();
+    @include d-flex();
+    @include d-flex-column();
+    height: 100%;
+}
+
+// 3. Header
+.site-header {
+    @include flex-grow();
+    @include d-flex();
+    @include d-flex-between();
+    max-height: 70px;
+    border-bottom: 1px solid #eeeeee;
+    .searchbar {
+        padding: 0 2em;
+        color: $secondary-text;
+        @include flex-grow();
+        @include d-flex();
+        @include d-flex-v-center();
+        input {
+            border: 0;
+            padding: 5px;
+            background-color: transparent;
+            color: $secondary-text;
+            font-family: inherit;
+            outline: none;
+            @include flex-grow();
+            margin-left: 10px;
+            &::-webkit-input-placeholder {
+                font-weight: 700;
+                font-size: 16px;
+                color: darken($secondary-text, 20);
+            }
+        }
+    }
+    .notification-bell {
+        padding: 1.5em;
+        border-left: 1px solid #eeeeee;
+        border-right: 1px solid #eeeeee;
+        color: darken($secondary-text, 35);
+    }
+    .user-info {
+        padding: 0 2em 0 1em;
+        @include d-flex();
+        @include d-flex-v-center();
+        position: relative;
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            top: 13px;
+            right: 2em;
+            width: 2px;
+            height: 8px;
+            background-color: #dbdbdb;
+            border-radius: 4px;
+        }
+        &::before {
+            transform: rotate(45deg) translateY(-3px);
+        }
+        &::after {
+            transform: rotate(-45deg) translateY(-3px);
+        }
+        .user-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            background-color: $secondary;
+            color: #ffffff;
+            font-size: 14px;
+            @include d-flex();
+            @include d-flex-v-center();
+            @include d-flex-h-center();
+            margin-right: 10px;
+        }
+        .user-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: darken($secondary-text, 35);
+            padding-right: 1em;
+        }
+    }
+}
